@@ -1,5 +1,16 @@
 export type QuoteType = 'standard' | 'turismo' | 'ptax'
 
+export type CurrencyCategory =
+  | 'principais'
+  | 'america-latina'
+  | 'europa'
+  | 'asia-pacifico'
+  | 'oriente-medio-africa'
+  | 'crypto'
+  | 'commodities'
+  | 'ptax'
+  | 'turismo'
+
 export interface QuoteData {
   code: string
   codein: string
@@ -35,4 +46,6 @@ export interface CurrencyPair {
   label: string
   symbol: string
   type: QuoteType
+  category: CurrencyCategory
+  flag?: string
 }
