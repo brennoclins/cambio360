@@ -8,7 +8,17 @@ export function getAllPairs(): string {
 
 export async function fetchLastQuotes(): Promise<Record<string, QuoteData>> {
   const pairs = getAllPairs()
-  return apiGet<Record<string, QuoteData>>(`/json/last/${pairs}`)
+  const data = await apiGet<Record<string, QuoteData>>(`/json/last/${pairs}`)
+
+  const remapped: Record<string, QuoteData> = {}
+  for (const pair of CURRENCY_PAIRS) {
+    const apiKey = `${pair.code}${pair.codein}`
+    if (data[apiKey]) {
+      remapped[pair.pair] = data[apiKey]
+    }
+  }
+
+  return remapped
 }
 
 export async function fetchDailyHistory(

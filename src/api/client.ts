@@ -13,7 +13,13 @@ export class ApiError extends Error {
 }
 
 export async function apiGet<T>(path: string): Promise<T> {
-  const response = await fetch(`${BASE_URL}${path}`)
+  const headers: HeadersInit = {}
+  const apiKey = import.meta.env.VITE_AWESOMEAPI_KEY as string | undefined
+  if (apiKey) {
+    headers['x-api-key'] = apiKey
+  }
+
+  const response = await fetch(`${BASE_URL}${path}`, { headers })
 
   if (!response.ok) {
     const body = await response.json().catch(() => ({}))
