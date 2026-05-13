@@ -1,8 +1,5 @@
-export function App() {
-  return (
-    <>
-      <h1>Cambio 360</h1>
-    </>
-  )
-}
+import { Dashboard } from './components/Dashboard'
 
+export default function App() {
+  return <Dashboard />
+}
