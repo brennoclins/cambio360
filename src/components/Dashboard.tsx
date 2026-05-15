@@ -66,7 +66,9 @@ export function Dashboard() {
             </div>
           )}
 
-          <SummaryCards quotes={quotes} loading={loading} />
+          <div className="hidden sm:block">
+            <SummaryCards quotes={quotes} loading={loading} />
+          </div>
 
           <div className="hidden sm:grid grid-cols-1 xl:grid-cols-3 gap-6">
             <div className="xl:col-span-2">
