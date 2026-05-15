@@ -1,5 +1,7 @@
 import type { CurrencyCategory } from '../types/quote'
 
+type ViewType = 'mercado' | 'cambio'
+
 interface SidebarProps {
   active: CurrencyCategory
   onChange: (category: CurrencyCategory) => void
@@ -7,6 +9,8 @@ interface SidebarProps {
   onToggle: () => void
   mobileOpen: boolean
   onMobileClose: () => void
+  currentView: ViewType
+  onViewChange: (view: ViewType) => void
 }
 
 const navItems: { key: CurrencyCategory; label: string; icon: string }[] = [
@@ -21,12 +25,14 @@ const navItems: { key: CurrencyCategory; label: string; icon: string }[] = [
   { key: 'turismo', label: 'Turismo', icon: 'M6 12 3.269 3.126A59.768 59.768 0 0 1 21.485 12 59.77 59.77 0 0 1 3.27 20.876L5.999 12zm0 0h7.5' },
 ]
 
-function SidebarContent({ active, onChange, collapsed, onToggle, isMobile }: {
+function SidebarContent({ active, onChange, collapsed, onToggle, isMobile, currentView, onViewChange }: {
   active: CurrencyCategory
   onChange: (category: CurrencyCategory) => void
   collapsed: boolean
   onToggle: () => void
   isMobile: boolean
+  currentView: ViewType
+  onViewChange: (view: ViewType) => void
 }) {
   return (
     <aside
@@ -57,16 +63,26 @@ function SidebarContent({ active, onChange, collapsed, onToggle, isMobile }: {
 
       <div className="px-3 mb-4">
         <div className="flex bg-white/[0.03] rounded-xl p-1">
-          <button className="flex-1 py-2 text-xs font-semibold text-white bg-white/10 rounded-lg transition-all cursor-pointer">
-            Market
+          <button
+            onClick={() => onViewChange('mercado')}
+            className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+              currentView === 'mercado' ? 'text-white bg-white/10' : 'text-slate-600'
+            }`}
+          >
+            Mercado
           </button>
-          <button className="flex-1 py-2 text-xs font-medium text-slate-600 rounded-lg transition-all cursor-pointer">
-            Trades
+          <button
+            onClick={() => onViewChange('cambio')}
+            className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+              currentView === 'cambio' ? 'text-white bg-white/10' : 'text-slate-600'
+            }`}
+          >
+            Câmbio
           </button>
         </div>
       </div>
 
-      {!collapsed && (
+      {currentView === 'mercado' && !collapsed && (
         <div className="px-3 mb-2">
           <div className="relative flex items-center gap-3 px-4 py-3 rounded-xl overflow-hidden cursor-pointer group">
             <div className="absolute inset-0 bg-gradient-to-r from-[#a3e635]/20 to-transparent opacity-60" />
@@ -74,45 +90,47 @@ function SidebarContent({ active, onChange, collapsed, onToggle, isMobile }: {
             <svg className="w-4 h-4 text-white/80 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
             </svg>
-            <span className="text-sm font-semibold text-white relative z-10">Discover</span>
+            <span className="text-sm font-semibold text-white relative z-10">Cotações</span>
           </div>
         </div>
       )}
 
-      <nav className="flex-1 overflow-y-auto px-3 py-2 space-y-0.5 scrollbar-none">
-        {navItems.map(item => {
-          const isActive = active === item.key
-          return (
-            <button
-              key={item.key}
-              type="button"
-              onClick={() => {
-                onChange(item.key)
-                if (isMobile) onToggle()
-              }}
-              title={collapsed ? item.label : undefined}
-              className={`relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all duration-200 cursor-pointer overflow-hidden ${
-                collapsed ? 'justify-center px-0' : ''
-              } ${
-                isActive
-                  ? 'text-white font-medium'
-                  : 'text-slate-600 hover:text-slate-400'
-              }`}
-            >
-              {isActive && !collapsed && (
-                <>
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#a3e635]/10 to-transparent" />
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-8 bg-[#a3e635]/15 blur-xl rounded-full" />
-                </>
-              )}
-              <svg className={`w-4 h-4 shrink-0 relative z-10 ${isActive ? 'text-[#a3e635]' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
-              </svg>
-              {!collapsed && <span className="truncate relative z-10">{item.label}</span>}
-            </button>
-          )
-        })}
-      </nav>
+      {currentView === 'mercado' && (
+        <nav className="flex-1 overflow-y-auto px-3 py-2 space-y-0.5 scrollbar-none">
+          {navItems.map(item => {
+            const isActive = active === item.key
+            return (
+              <button
+                key={item.key}
+                type="button"
+                onClick={() => {
+                  onChange(item.key)
+                  if (isMobile) onToggle()
+                }}
+                title={collapsed ? item.label : undefined}
+                className={`relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all duration-200 cursor-pointer overflow-hidden ${
+                  collapsed ? 'justify-center px-0' : ''
+                } ${
+                  isActive
+                    ? 'text-white font-medium'
+                    : 'text-slate-600 hover:text-slate-400'
+                }`}
+              >
+                {isActive && !collapsed && (
+                  <>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#a3e635]/10 to-transparent" />
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-8 bg-[#a3e635]/15 blur-xl rounded-full" />
+                  </>
+                )}
+                <svg className={`w-4 h-4 shrink-0 relative z-10 ${isActive ? 'text-[#a3e635]' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
+                </svg>
+                {!collapsed && <span className="truncate relative z-10">{item.label}</span>}
+              </button>
+            )
+          })}
+        </nav>
+      )}
 
       {!collapsed && (
         <div className="px-4 py-4">
@@ -126,7 +144,7 @@ function SidebarContent({ active, onChange, collapsed, onToggle, isMobile }: {
   )
 }
 
-export function Sidebar({ active, onChange, collapsed, onToggle, mobileOpen, onMobileClose }: SidebarProps) {
+export function Sidebar({ active, onChange, collapsed, onToggle, mobileOpen, onMobileClose, currentView, onViewChange }: SidebarProps) {
   return (
     <>
       <div className="hidden lg:block fixed left-0 top-0 h-full z-30">
@@ -136,6 +154,8 @@ export function Sidebar({ active, onChange, collapsed, onToggle, mobileOpen, onM
           collapsed={collapsed}
           onToggle={onToggle}
           isMobile={false}
+          currentView={currentView}
+          onViewChange={onViewChange}
         />
       </div>
 
@@ -148,6 +168,8 @@ export function Sidebar({ active, onChange, collapsed, onToggle, mobileOpen, onM
           collapsed={false}
           onToggle={onMobileClose}
           isMobile={true}
+          currentView={currentView}
+          onViewChange={onViewChange}
         />
       </div>
     </>
