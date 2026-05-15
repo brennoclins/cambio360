@@ -11,18 +11,18 @@ interface QuoteCardProps {
 
 function QuoteCardSkeleton() {
   return (
-    <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 animate-pulse">
+    <div className="p-4 rounded-xl bg-[#0f1a16] border border-white/5 animate-pulse">
       <div className="flex items-center gap-2 mb-3">
-        <div className="w-6 h-4 rounded bg-slate-800" />
-        <div className="h-4 w-16 bg-slate-800 rounded" />
-        <div className="ml-auto h-5 w-14 bg-slate-800 rounded-full" />
+        <div className="w-6 h-4 rounded bg-white/5" />
+        <div className="h-4 w-16 bg-white/5 rounded" />
+        <div className="ml-auto h-5 w-14 bg-white/5 rounded-full" />
       </div>
-      <div className="h-7 w-28 bg-slate-800 rounded mb-3" />
+      <div className="h-7 w-28 bg-white/5 rounded mb-3" />
       <div className="grid grid-cols-2 gap-2">
-        <div className="h-3 w-16 bg-slate-800 rounded" />
-        <div className="h-3 w-16 bg-slate-800 rounded" />
-        <div className="h-3 w-16 bg-slate-800 rounded" />
-        <div className="h-3 w-16 bg-slate-800 rounded" />
+        <div className="h-3 w-16 bg-white/5 rounded" />
+        <div className="h-3 w-16 bg-white/5 rounded" />
+        <div className="h-3 w-16 bg-white/5 rounded" />
+        <div className="h-3 w-16 bg-white/5 rounded" />
       </div>
     </div>
   )
@@ -42,27 +42,27 @@ export function QuoteCard({ pair, data, loading, isSelected, onSelect }: QuoteCa
       onClick={onSelect}
       className={`relative w-full text-left p-4 rounded-xl cursor-pointer transition-all duration-200 border ${
         isSelected
-          ? 'bg-slate-800/80 border-emerald-500/40 shadow-lg shadow-emerald-500/5 ring-1 ring-emerald-500/20'
-          : 'bg-slate-900 border-slate-800 hover:border-slate-700 hover:bg-slate-800/40'
+          ? 'bg-[#132e28] border-[#a3e635]/30'
+          : 'bg-[#0f1a16] border-white/5 hover:border-white/10 hover:bg-[#132e28]/30'
       }`}
     >
       <div className="flex items-center gap-2 mb-2.5">
         {pair.flag && (
           <span className="text-base leading-none">{pair.flag}</span>
         )}
-        <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+        <span className="text-xs font-semibold text-slate-600 uppercase tracking-wider">
           {pair.pair}
         </span>
         {pair.type !== 'standard' && (
-          <span className="text-[10px] font-medium text-slate-500 bg-slate-800 px-1.5 py-0.5 rounded">
+          <span className="text-[10px] font-medium text-slate-600 bg-white/5 px-1.5 py-0.5 rounded">
             {pair.type === 'turismo' ? 'Turismo' : 'PTAX'}
           </span>
         )}
         <span
           className={`ml-auto inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[11px] font-semibold shrink-0 ${
             isPositive
-              ? 'bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/20'
-              : 'bg-red-500/10 text-red-400 ring-1 ring-red-500/20'
+              ? 'text-[#4ade80]'
+              : 'text-[#f87171]'
           }`}
         >
           <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
@@ -76,36 +76,34 @@ export function QuoteCard({ pair, data, loading, isSelected, onSelect }: QuoteCa
         </span>
       </div>
 
-      <div className={`text-xl font-bold tabular-nums mb-2.5 tracking-tight ${
-        isPositive ? 'text-emerald-400' : 'text-red-400'
-      }`}>
+      <div className="text-xl font-bold tabular-nums mb-2.5 tracking-tight text-white">
         {pair.symbol} {formatBRL(data.bid)}
       </div>
 
-      <p className="text-xs text-slate-500 mb-2.5 truncate">{pair.label}</p>
+      <p className="text-xs text-slate-600 mb-2.5 truncate">{pair.label}</p>
 
-      <div className="grid grid-cols-2 gap-x-3 gap-y-1 pt-2.5 border-t border-slate-800">
+      <div className="grid grid-cols-2 gap-x-3 gap-y-1 pt-2.5 border-t border-white/5">
         <div>
-          <span className="text-[10px] font-medium text-slate-600 uppercase tracking-wider">Compra</span>
+          <span className="text-[10px] font-medium text-slate-700 uppercase tracking-wider">Compra</span>
           <p className="text-xs font-medium text-slate-300 tabular-nums mt-0.5">
             {formatBRL(data.bid)}
           </p>
         </div>
         <div>
-          <span className="text-[10px] font-medium text-slate-600 uppercase tracking-wider">Venda</span>
+          <span className="text-[10px] font-medium text-slate-700 uppercase tracking-wider">Venda</span>
           <p className="text-xs font-medium text-slate-300 tabular-nums mt-0.5">
             {formatBRL(data.ask)}
           </p>
         </div>
         <div>
-          <span className="text-[10px] font-medium text-slate-600 uppercase tracking-wider">Mínima</span>
-          <p className="text-xs text-slate-400 tabular-nums mt-0.5">
+          <span className="text-[10px] font-medium text-slate-700 uppercase tracking-wider">Mínima</span>
+          <p className="text-xs text-slate-500 tabular-nums mt-0.5">
             {formatBRL(data.low, 2)}
           </p>
         </div>
         <div>
-          <span className="text-[10px] font-medium text-slate-600 uppercase tracking-wider">Máxima</span>
-          <p className="text-xs text-slate-400 tabular-nums mt-0.5">
+          <span className="text-[10px] font-medium text-slate-700 uppercase tracking-wider">Máxima</span>
+          <p className="text-xs text-slate-500 tabular-nums mt-0.5">
             {formatBRL(data.high, 2)}
           </p>
         </div>

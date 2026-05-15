@@ -24,15 +24,15 @@ export function Dashboard() {
   } = useHistory('USD-BRL')
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-[#0c1a16]">
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-20 lg:hidden"
+          className="fixed inset-0 bg-black/60 z-20 lg:hidden"
           onClick={() => setMobileMenuOpen(false)}
         />
       )}
 
-      <div className={`hidden lg:block ${sidebarCollapsed ? 'lg:pl-16' : 'lg:pl-56'}`}>
+      <div className={`hidden lg:block ${sidebarCollapsed ? 'lg:pl-[60px]' : 'lg:pl-[240px]'}`}>
         <Sidebar
           active={activeCategory}
           onChange={setActiveCategory}
@@ -41,7 +41,7 @@ export function Dashboard() {
         />
       </div>
 
-      <div className={`lg:hidden ${mobileMenuOpen ? 'pl-56' : ''}`}>
+      <div className={`lg:hidden ${mobileMenuOpen ? 'pl-[240px]' : ''}`}>
         <div className={`fixed inset-y-0 left-0 z-30 transition-transform duration-300 lg:hidden ${
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}>
@@ -54,7 +54,7 @@ export function Dashboard() {
         </div>
       </div>
 
-      <div className={`transition-all duration-300 ${sidebarCollapsed ? 'lg:ml-16' : 'lg:ml-56'}`}>
+      <div className={`transition-all duration-300 ${sidebarCollapsed ? 'lg:ml-[60px]' : 'lg:ml-[240px]'}`}>
         <TopBar
           lastUpdated={lastUpdated}
           refreshing={refreshing}
@@ -64,7 +64,7 @@ export function Dashboard() {
 
         <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
           {error && (
-            <div className="flex items-center gap-3 px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-xl text-sm text-red-400">
+            <div className="flex items-center gap-3 px-4 py-3 bg-[#f87171]/10 border border-[#f87171]/20 rounded-xl text-sm text-[#f87171]">
               <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
               </svg>
@@ -72,7 +72,7 @@ export function Dashboard() {
               <button
                 type="button"
                 onClick={refresh}
-                className="text-sm font-semibold text-red-300 underline hover:no-underline cursor-pointer shrink-0"
+                className="text-sm font-semibold text-[#fca5a5] underline hover:no-underline cursor-pointer shrink-0"
               >
                 Tentar novamente
               </button>
@@ -90,7 +90,7 @@ export function Dashboard() {
               />
             </div>
             <div className="xl:col-span-1">
-              <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 h-full">
+              <div className="p-4 rounded-xl bg-[#0f1a16] border border-white/5 h-full">
                 <h3 className="text-sm font-semibold text-white mb-3">Mercados</h3>
                 <div className="space-y-2">
                   {['principais', 'crypto', 'ptax'].map(cat => {
@@ -104,10 +104,10 @@ export function Dashboard() {
                       <button
                         key={cat}
                         onClick={() => setActiveCategory(cat as CurrencyCategory)}
-                        className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition-all cursor-pointer ${
+                        className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-all cursor-pointer ${
                           isActive
-                            ? 'bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/20'
-                            : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                            ? 'bg-[#a3e635]/10 text-[#a3e635]'
+                            : 'text-slate-600 hover:text-slate-400 hover:bg-white/5'
                         }`}
                       >
                         <span>{labels[cat]}</span>
@@ -119,18 +119,18 @@ export function Dashboard() {
                   })}
                 </div>
 
-                <div className="mt-4 pt-4 border-t border-slate-800">
+                <div className="mt-4 pt-4 border-t border-white/5">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-slate-500">Atualização</span>
-                    <span className="text-slate-400 font-mono">60s</span>
+                    <span className="text-slate-700">Atualização</span>
+                    <span className="text-slate-500 font-mono">60s</span>
                   </div>
                   <div className="flex items-center justify-between text-xs mt-2">
-                    <span className="text-slate-500">Moedas</span>
-                    <span className="text-slate-400 font-mono">60</span>
+                    <span className="text-slate-700">Moedas</span>
+                    <span className="text-slate-500 font-mono">60</span>
                   </div>
                   <div className="flex items-center justify-between text-xs mt-2">
-                    <span className="text-slate-500">Fonte</span>
-                    <a href="https://docs.awesomeapi.com.br" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">
+                    <span className="text-slate-700">Fonte</span>
+                    <a href="https://docs.awesomeapi.com.br" target="_blank" rel="noopener noreferrer" className="text-[#a3e635]/70 hover:text-[#a3e635] hover:underline">
                       AwesomeAPI
                     </a>
                   </div>
@@ -158,10 +158,10 @@ export function Dashboard() {
           )}
         </main>
 
-        <footer className="max-w-7xl mx-auto px-4 sm:px-6 py-6 mt-8 border-t border-slate-800/50">
-          <p className="text-[11px] text-slate-600 text-center">
+        <footer className="max-w-7xl mx-auto px-4 sm:px-6 py-6 mt-8 border-t border-white/5">
+          <p className="text-[11px] text-slate-700 text-center">
             Dados fornecidos por{' '}
-            <a href="https://docs.awesomeapi.com.br" target="_blank" rel="noopener noreferrer" className="text-slate-500 underline hover:text-slate-400">
+            <a href="https://docs.awesomeapi.com.br" target="_blank" rel="noopener noreferrer" className="text-slate-600 underline hover:text-slate-500">
               AwesomeAPI
             </a>
             {' '}&middot; 60 pares monitorados &middot; Atualizações a cada 60s

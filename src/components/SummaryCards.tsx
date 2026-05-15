@@ -7,7 +7,7 @@ interface SummaryCardsProps {
 }
 
 const highlights = [
-  { pair: 'USD-BRL', label: 'Dólar', symbol: 'US$', icon: '🇺🇸' },
+  { pair: 'USD-BRL', label: 'Dólar', symbol: 'US$', icon: '🇺' },
   { pair: 'EUR-BRL', label: 'Euro', symbol: '€', icon: '🇪🇺' },
   { pair: 'GBP-BRL', label: 'Libra', symbol: '£', icon: '🇬🇧' },
   { pair: 'BTC-BRL', label: 'Bitcoin', symbol: '₿', icon: '₿' },
@@ -24,10 +24,10 @@ export function SummaryCards({ quotes, loading }: SummaryCardsProps) {
         return (
           <div
             key={h.pair}
-            className="relative p-4 rounded-xl bg-slate-900 border border-slate-800 overflow-hidden group hover:border-slate-700 transition-colors"
+            className="relative p-4 rounded-xl bg-[#0f1a16] border border-white/5 overflow-hidden group hover:border-white/10 transition-colors"
           >
             <div className={`absolute top-0 right-0 w-20 h-20 rounded-full blur-2xl -translate-y-6 translate-x-6 ${
-              loading ? 'bg-slate-700/20' : isPositive ? 'bg-emerald-500/10' : 'bg-red-500/10'
+              loading ? 'bg-white/5' : isPositive ? 'bg-[#4ade80]/10' : 'bg-[#f87171]/10'
             }`} />
 
             <div className="relative">
@@ -35,24 +35,22 @@ export function SummaryCards({ quotes, loading }: SummaryCardsProps) {
                 <span className="text-lg">{h.icon}</span>
                 <div>
                   <p className="text-xs text-slate-500 font-medium">{h.label}</p>
-                  <p className="text-[10px] text-slate-600 font-mono">{h.pair}</p>
+                  <p className="text-[10px] text-slate-700 font-mono">{h.pair}</p>
                 </div>
               </div>
 
               {loading || !data ? (
                 <div className="space-y-2 animate-pulse">
-                  <div className="h-6 w-24 bg-slate-800 rounded" />
-                  <div className="h-4 w-14 bg-slate-800 rounded" />
+                  <div className="h-6 w-24 bg-white/5 rounded" />
+                  <div className="h-4 w-14 bg-white/5 rounded" />
                 </div>
               ) : (
                 <>
-                  <p className={`text-lg font-bold tabular-nums tracking-tight ${
-                    isPositive ? 'text-emerald-400' : 'text-red-400'
-                  }`}>
+                  <p className="text-lg font-bold tabular-nums tracking-tight text-white">
                     {h.symbol} {formatBRL(data.bid)}
                   </p>
                   <div className="flex items-center gap-1 mt-1">
-                    <svg className={`w-3 h-3 ${isPositive ? 'text-emerald-400' : 'text-red-400'}`} fill="currentColor" viewBox="0 0 20 20">
+                    <svg className={`w-3 h-3 ${isPositive ? 'text-[#4ade80]' : 'text-[#f87171]'}`} fill="currentColor" viewBox="0 0 20 20">
                       {isPositive ? (
                         <path fillRule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
                       ) : (
@@ -60,7 +58,7 @@ export function SummaryCards({ quotes, loading }: SummaryCardsProps) {
                       )}
                     </svg>
                     <span className={`text-xs font-semibold tabular-nums ${
-                      isPositive ? 'text-emerald-400' : 'text-red-400'
+                      isPositive ? 'text-[#4ade80]' : 'text-[#f87171]'
                     }`}>
                       {isPositive ? '+' : ''}{data.pctChange}%
                     </span>
