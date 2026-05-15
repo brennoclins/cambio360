@@ -88,3 +88,30 @@ export const CURRENCY_PAIRS: CurrencyPair[] = [
   { code: 'SEK', codein: 'BRLPTAX', pair: 'SEK-BRLPTAX', label: 'Coroa Sueca', symbol: 'kr', type: 'ptax', category: 'ptax', flag: '🇸🇪' },
   { code: 'NOK', codein: 'BRLPTAX', pair: 'NOK-BRLPTAX', label: 'Coroa Norueguesa', symbol: 'kr', type: 'ptax', category: 'ptax', flag: '🇳🇴' },
 ]
+
+export interface MarketHub {
+  code: string
+  city: string
+  flag: string
+  timezone: string
+  lat: number
+  lng: number
+}
+
+export const MARKET_HUBS: Record<string, MarketHub> = {
+  BRL: { code: 'BRL', city: 'São Paulo', flag: '🇧🇷', timezone: 'America/Sao_Paulo', lat: -23.55, lng: -46.63 },
+  USD: { code: 'USD', city: 'Nova York', flag: '🇺🇸', timezone: 'America/New_York', lat: 40.71, lng: -74.00 },
+  GBP: { code: 'GBP', city: 'Londres', flag: '🇬🇧', timezone: 'Europe/London', lat: 51.51, lng: -0.13 },
+  EUR: { code: 'EUR', city: 'Frankfurt', flag: '🇪🇺', timezone: 'Europe/Berlin', lat: 50.11, lng: 8.68 },
+  IT: { code: 'IT', city: 'Milão', flag: '🇮🇹', timezone: 'Europe/Rome', lat: 45.46, lng: 9.19 },
+  FR: { code: 'FR', city: 'Paris', flag: '🇫🇷', timezone: 'Europe/Paris', lat: 48.86, lng: 2.35 },
+  CNY: { code: 'CNY', city: 'Xangai', flag: '🇨🇳', timezone: 'Asia/Shanghai', lat: 31.23, lng: 121.47 },
+  JPY: { code: 'JPY', city: 'Tóquio', flag: '🇯🇵', timezone: 'Asia/Tokyo', lat: 35.68, lng: 139.69 },
+  CHF: { code: 'CHF', city: 'Zurique', flag: '🇨🇭', timezone: 'Europe/Zurich', lat: 47.38, lng: 8.54 },
+  CAD: { code: 'CAD', city: 'Toronto', flag: '🇨🇦', timezone: 'America/Toronto', lat: 43.65, lng: -79.38 },
+  AUD: { code: 'AUD', city: 'Sydney', flag: '🇦🇺', timezone: 'Australia/Sydney', lat: -33.87, lng: 151.21 },
+  BTC: { code: 'BTC', city: 'Global', flag: '₿', timezone: 'UTC', lat: 0, lng: 0 },
+  ARS: { code: 'ARS', city: 'Buenos Aires', flag: '🇦🇷', timezone: 'America/Argentina/Buenos_Aires', lat: -34.60, lng: -58.38 },
+}
+
+export const DEFAULT_MARKET_CODES = ['BRL', 'IT', 'GBP', 'CNY', 'FR', 'USD']
