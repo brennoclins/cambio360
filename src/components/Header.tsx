@@ -1,13 +1,6 @@
 export function Header() {
   return (
-    <header className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-white overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: `radial-gradient(circle at 25% 50%, white 1px, transparent 1px),
-                          radial-gradient(circle at 75% 50%, white 1px, transparent 1px)`,
-        backgroundSize: '40px 40px',
-      }} />
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4" />
+    <header className="relative bg-linear-to-br from-emerald-950 via-emerald-900 to-emerald-700 text-white overflow-hidden">
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-9">
         <div className="flex items-center justify-between">
           <div>
@@ -18,7 +11,7 @@ export function Header() {
                 </svg>
               </div>
               <div>
-                <h1 className="text-lg sm:text-xl font-bold tracking-tight">Cotação BCL</h1>
+                <h1 className="text-lg sm:text-xl font-bold tracking-tight">Cambio 360 - BCL-ST</h1>
                 <p className="text-slate-400 text-xs mt-0.5">
                   Cotações de moedas em tempo real
                 </p>
