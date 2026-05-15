@@ -25,34 +25,21 @@ export function Dashboard() {
 
   return (
     <div className="min-h-screen bg-[#0c1a16]">
+      <Sidebar
+        active={activeCategory}
+        onChange={setActiveCategory}
+        collapsed={sidebarCollapsed}
+        onToggle={() => setSidebarCollapsed(c => !c)}
+        mobileOpen={mobileMenuOpen}
+        onMobileClose={() => setMobileMenuOpen(false)}
+      />
+
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/60 z-20 lg:hidden"
+          className="fixed inset-0 bg-black/60 z-30 lg:hidden"
           onClick={() => setMobileMenuOpen(false)}
         />
       )}
-
-      <div className={`hidden lg:block ${sidebarCollapsed ? 'lg:pl-[60px]' : 'lg:pl-[240px]'}`}>
-        <Sidebar
-          active={activeCategory}
-          onChange={setActiveCategory}
-          collapsed={sidebarCollapsed}
-          onToggle={() => setSidebarCollapsed(c => !c)}
-        />
-      </div>
-
-      <div className={`lg:hidden ${mobileMenuOpen ? 'pl-[240px]' : ''}`}>
-        <div className={`fixed inset-y-0 left-0 z-30 transition-transform duration-300 lg:hidden ${
-          mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}>
-          <Sidebar
-            active={activeCategory}
-            onChange={(cat) => { setActiveCategory(cat); setMobileMenuOpen(false) }}
-            collapsed={false}
-            onToggle={() => setMobileMenuOpen(false)}
-          />
-        </div>
-      </div>
 
       <div className={`transition-all duration-300 ${sidebarCollapsed ? 'lg:ml-[60px]' : 'lg:ml-[240px]'}`}>
         <TopBar

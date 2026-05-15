@@ -5,6 +5,8 @@ interface SidebarProps {
   onChange: (category: CurrencyCategory) => void
   collapsed: boolean
   onToggle: () => void
+  mobileOpen: boolean
+  onMobileClose: () => void
 }
 
 const navItems: { key: CurrencyCategory; label: string; icon: string }[] = [
@@ -19,10 +21,16 @@ const navItems: { key: CurrencyCategory; label: string; icon: string }[] = [
   { key: 'turismo', label: 'Turismo', icon: 'M6 12 3.269 3.126A59.768 59.768 0 0 1 21.485 12 59.77 59.77 0 0 1 3.27 20.876L5.999 12zm0 0h7.5' },
 ]
 
-export function Sidebar({ active, onChange, collapsed, onToggle }: SidebarProps) {
+function SidebarContent({ active, onChange, collapsed, onToggle, isMobile }: {
+  active: CurrencyCategory
+  onChange: (category: CurrencyCategory) => void
+  collapsed: boolean
+  onToggle: () => void
+  isMobile: boolean
+}) {
   return (
     <aside
-      className={`fixed left-0 top-0 h-full bg-[#0a1410] flex flex-col transition-all duration-300 z-30 ${
+      className={`h-full bg-[#0a1410] flex flex-col ${
         collapsed ? 'w-[60px]' : 'w-[240px]'
       }`}
     >
@@ -78,7 +86,10 @@ export function Sidebar({ active, onChange, collapsed, onToggle }: SidebarProps)
             <button
               key={item.key}
               type="button"
-              onClick={() => onChange(item.key)}
+              onClick={() => {
+                onChange(item.key)
+                if (isMobile) onToggle()
+              }}
               title={collapsed ? item.label : undefined}
               className={`relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all duration-200 cursor-pointer overflow-hidden ${
                 collapsed ? 'justify-center px-0' : ''
@@ -112,5 +123,33 @@ export function Sidebar({ active, onChange, collapsed, onToggle }: SidebarProps)
         </div>
       )}
     </aside>
+  )
+}
+
+export function Sidebar({ active, onChange, collapsed, onToggle, mobileOpen, onMobileClose }: SidebarProps) {
+  return (
+    <>
+      <div className="hidden lg:block fixed left-0 top-0 h-full z-30">
+        <SidebarContent
+          active={active}
+          onChange={onChange}
+          collapsed={collapsed}
+          onToggle={onToggle}
+          isMobile={false}
+        />
+      </div>
+
+      <div className={`fixed inset-y-0 left-0 z-50 lg:hidden transition-transform duration-300 ease-in-out ${
+        mobileOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}>
+        <SidebarContent
+          active={active}
+          onChange={onChange}
+          collapsed={false}
+          onToggle={onMobileClose}
+          isMobile={true}
+        />
+      </div>
+    </>
   )
 }
