@@ -61,26 +61,28 @@ function SidebarContent({ active, onChange, collapsed, onToggle, isMobile, curre
         </button>
       </div>
 
-      <div className="px-3 mb-4">
-        <div className="flex bg-white/[0.03] rounded-xl p-1">
-          <button
-            onClick={() => onViewChange('mercado')}
-            className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
-              currentView === 'mercado' ? 'text-white bg-white/10' : 'text-slate-600'
-            }`}
-          >
-            Mercado
-          </button>
-          <button
-            onClick={() => onViewChange('cambio')}
-            className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
-              currentView === 'cambio' ? 'text-white bg-white/10' : 'text-slate-600'
-            }`}
-          >
-            Câmbio
-          </button>
+      {!collapsed && (
+        <div className="px-3 mb-4">
+          <div className="flex bg-white/[0.03] rounded-xl p-1">
+            <button
+              onClick={() => onViewChange('mercado')}
+              className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                currentView === 'mercado' ? 'text-white bg-white/10' : 'text-slate-600'
+              }`}
+            >
+              Mercado
+            </button>
+            <button
+              onClick={() => onViewChange('cambio')}
+              className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                currentView === 'cambio' ? 'text-white bg-white/10' : 'text-slate-600'
+              }`}
+            >
+              Câmbio
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {currentView === 'mercado' && !collapsed && (
         <div className="px-3 mb-2">
